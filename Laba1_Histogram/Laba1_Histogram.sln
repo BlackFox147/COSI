@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba1_Histogram", "Laba1_Histogram\Laba1_Histogram.csproj", "{753E8F49-7472-4D62-A790-8F6666EB89D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba1_Histogram.ImageProcessing", "Laba1_Histogram.ImageProcessing\Laba1_Histogram.ImageProcessing.csproj", "{27D4890C-6043-45F2-B015-0FE746379368}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{753E8F49-7472-4D62-A790-8F6666EB89D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753E8F49-7472-4D62-A790-8F6666EB89D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753E8F49-7472-4D62-A790-8F6666EB89D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753E8F49-7472-4D62-A790-8F6666EB89D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27D4890C-6043-45F2-B015-0FE746379368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27D4890C-6043-45F2-B015-0FE746379368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27D4890C-6043-45F2-B015-0FE746379368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27D4890C-6043-45F2-B015-0FE746379368}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39D19F2F-36CB-4AE3-9463-D2C31DAA887C}
+	EndGlobalSection
+EndGlobal
