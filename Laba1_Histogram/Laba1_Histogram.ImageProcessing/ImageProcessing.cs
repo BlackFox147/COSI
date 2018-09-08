@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
 using Laba1_Histogram.ImageProcessing.Models;
 
 namespace Laba1_Histogram.ImageProcessing
 {
     public class ImageProcessing
     {
-        public IList<ChannelHistogram> Calculate(Bitmap image)
+        public IList<ChannelHistogram> CalculateHistogram(Bitmap image)
         {
             var rHistogram = new ChannelHistogram(TypeOfСhannel.RedСhannel);
             var gHistogram = new ChannelHistogram(TypeOfСhannel.GreenСhannel);
@@ -36,7 +37,7 @@ namespace Laba1_Histogram.ImageProcessing
             Color pixel)
         {
             AddBrightForChannel(pixel.R, rHistogram);
-            AddBrightForChannel(pixel.G,gHistogram);
+            AddBrightForChannel(pixel.G, gHistogram);
             AddBrightForChannel(pixel.B, bHistogram);
         }
 
@@ -49,34 +50,87 @@ namespace Laba1_Histogram.ImageProcessing
             channelHistogram.Histogram[bright]++;
         }
 
-        //public Bitmap LogCorrection(Bitmap origin, double c)
-        //{
-        //    var newImage = new Bitmap(origin.Width, origin.Height, PixelFormat.Format24bppRgb);
+        public Bitmap Dissection(Bitmap image, byte fmin, byte fmax, byte gmin, byte gmax,
+            TypeOfDissection typeOfDissection)
+        {
+            var coefficients = typeOfDissection == TypeOfDissection.RestrictionOfInputBrightness
+                ? GetInputDissectionCoefficients(fmin, fmax, gmin, gmax)
+                : GetOutputDissectionCoefficients(fmin, fmax, gmin, gmax);
 
-        //    for (var i = 0; i < origin.Width; ++i)
-        //    {
-        //        for (var j = 0; j < origin.Height; ++j)
-        //        {
-        //            var pixel = origin.GetPixel(i, j);
+            return SetPixelsForDissection(image, coefficients);
+        }
 
-        //            var newR = (byte)(c * Math.Log(1 + pixel.R));
-        //            var newG = (byte)(c * Math.Log(1 + pixel.G));
-        //            var newB = (byte)(c * Math.Log(1 + pixel.B));
+        private Bitmap SetPixelsForDissection(Bitmap image, Dictionary<byte, byte> coefficients)
+        {
+            var resultImage = new Bitmap(image.Width, image.Height, PixelFormat.Format24bppRgb);
 
-        //            newImage.SetPixel(i, j, Color.FromArgb(newR, newG, newB));
-        //        }
-        //    }
+            for (int i = 0; i < image.Width; ++i)
+            {
+                for (int j = 0; j < image.Height; ++j)
+                {
+                    var pixel = image.GetPixel(i, j);
 
-        //    return newImage;
-        //}
+                    byte newR = coefficients[pixel.R];
+                    byte newG = coefficients[pixel.G];
+                    byte newB = coefficients[pixel.B];
+
+                    resultImage.SetPixel(i, j, Color.FromArgb(newR, newG, newB));
+                }
+            }
+            return resultImage;
+        }
+
+
+        private Dictionary<byte, byte> GetInputDissectionCoefficients(byte fmin, byte fmax, byte gmin, byte gmax)
+        {
+            double coefficientDissection = (double)gmax / (fmax - fmin);
+
+            var inputCoefficients = new Dictionary<byte, byte>();
+
+            for (int i = 0; i < 256; i++)
+            {
+                if (i < fmin)
+                {
+                    inputCoefficients.Add(Convert.ToByte(i), 0);
+                }
+
+                if (i >= fmin && i < fmax)
+                {
+                    byte g = Convert.ToByte((i - fmin) * coefficientDissection);
+
+                    inputCoefficients.Add(Convert.ToByte(i), g);
+                }
+
+                if (i >= fmax)
+                {
+                    inputCoefficients.Add(Convert.ToByte(i), 255);
+                }
+            }
+            return inputCoefficients;
+        }
+
+        private Dictionary<byte, byte> GetOutputDissectionCoefficients(byte fmin, byte fmax, byte gmin, byte gmax)
+        {
+            double coefficientDissection = (double)(gmax - gmin) / fmax;
+
+            var inputCoefficients = new Dictionary<byte, byte>();
+
+            for (int i = 0; i <= 255; i++)
+            {
+                byte g = Convert.ToByte(i * coefficientDissection + gmin);
+
+                inputCoefficients.Add(Convert.ToByte(i), g);
+            }
+            return inputCoefficients;
+        }
 
         public Bitmap Resize(Bitmap original, int customWidth, int customHeight)
         {
             int originalWidth = original.Width;
             int originalHeight = original.Height;
 
-            float ratioX = (float)customWidth / (float)originalWidth;
-            float ratioY = (float)customHeight / (float)originalHeight;
+            float ratioX = (float)customWidth / originalWidth;
+            float ratioY = (float)customHeight / originalHeight;
             float ratio = Math.Min(ratioX, ratioY);
 
             int newWidth = (int)(originalWidth * ratio);
@@ -95,46 +149,72 @@ namespace Laba1_Histogram.ImageProcessing
             return newImage;
         }
 
-        //public Bitmap RobertsonFilter(Bitmap origin)
-        //{
-        //    var newImage = new Bitmap(origin.Width, origin.Height, PixelFormat.Format24bppRgb);
+        public Bitmap FiltrationMinMax(Bitmap origin)
+        {
+            return Filtration(Filtration(origin, TypeOfFiltration.Min), TypeOfFiltration.Max);
+        }
 
-        //    var filteredPixels = this.Calculateresponse(origin);
+        public Bitmap Filtration(Bitmap origin, TypeOfFiltration typeOfFiltration)
+        {
+            var resultImage = new Bitmap(origin.Width, origin.Height, PixelFormat.Format24bppRgb);
 
-        //    for (var i = 0; i < origin.Width; ++i)
-        //    {
-        //        for (var j = 0; j < origin.Height; ++j)
-        //        {
-        //            newImage.SetPixel(i, j, filteredPixels[origin.Height * i + j]);
-        //        }
-        //    }
+            for (int i = 1; i < origin.Width - 1; i++)
+            {
+                for (int j = 1; j < origin.Height - 1; j++)
+                {
+                    resultImage.SetPixel(i, j, FiltrationPixel(origin, i, j, typeOfFiltration));
+                   
+                }
+            }
+            return resultImage;
+        }
 
-        //    return newImage;
-        //}
+        private Color FiltrationPixel(Bitmap image, int i, int j, TypeOfFiltration typeOfFiltration)
+        {
+            var pixelBytes = new List<Color>();
 
-        //// pixel0, pixel1
-        //// pixel2, pixel3
-        //private IList<Color> Calculateresponse(Bitmap origin)
-        //{
-        //    var result = new List<Color>();
-        //    for (var i = 0; i < origin.Width; ++i)
-        //    {
-        //        for (var j = 0; j < origin.Height; ++j)
-        //        {
-        //            var pixel0 = origin.GetPixel(i, j);
-        //            var pixel1 = i == origin.Width - 1? Color.White: origin.GetPixel(i + 1, j);
-        //            var pixel2 = j == origin.Height - 1 ? Color.White : origin.GetPixel(i, j + 1);
-        //            var pixel3 = i == origin.Width - 1 || j == origin.Height - 1? Color.White: origin.GetPixel(i + 1, j + 1);
+            for (int k = i - 1; k < i + 2; k++)
+            {
+                for (int m = j - 1; m < j + 2; m++)
+                {
+                    pixelBytes.Add(image.GetPixel(k, m));
+                }
+            }
 
-        //            var rG = Math.Pow(Math.Pow(pixel0.R - pixel3.R, 2) + Math.Pow(pixel1.R - pixel2.R, 2), 0.5);
-        //            var gG = Math.Pow(Math.Pow(pixel0.G - pixel3.G, 2) + Math.Pow(pixel1.G - pixel2.G, 2), 0.5);
-        //            var bG = Math.Pow(Math.Pow(pixel0.B - pixel3.B, 2) + Math.Pow(pixel1.B - pixel2.B, 2), 0.5);
+            pixelBytes.RemoveAt(4);
+            byte newR;
+            byte newG;
+            byte newB;
 
-        //            result.Add(Color.FromArgb((byte)rG, (byte)gG, (byte)bG));
-        //        }
-        //    }
+            switch (typeOfFiltration)
+            {
+                case TypeOfFiltration.Min:
+                    newR = MinFiltrationColor(pixelBytes.Select(p => p.R).ToList());
+                    newG = MinFiltrationColor(pixelBytes.Select(p => p.G).ToList());
+                    newB = MinFiltrationColor(pixelBytes.Select(p => p.B).ToList());
+                    break;
+                case TypeOfFiltration.Max:
+                    newR = MaxFiltrationColor(pixelBytes.Select(p => p.R).ToList());
+                    newG = MaxFiltrationColor(pixelBytes.Select(p => p.G).ToList());
+                    newB = MaxFiltrationColor(pixelBytes.Select(p => p.B).ToList());
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(typeOfFiltration), typeOfFiltration, null);
+            }
 
-        //    return result;
-        //}
+            return Color.FromArgb(newR, newG, newB);
+        }
+
+        private byte MinFiltrationColor(List<byte> colorBytes)
+        {
+            colorBytes.Sort();
+            return colorBytes.First();
+        }
+
+        private byte MaxFiltrationColor(List<byte> colorBytes)
+        {
+            colorBytes.Sort();
+            return colorBytes.Last();
+        }
     }
 }

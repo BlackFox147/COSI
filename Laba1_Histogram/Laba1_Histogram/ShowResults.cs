@@ -19,7 +19,7 @@ namespace Laba1_Histogram
         public ShowResults()
         {
             InitializeComponent();
-            
+
             _imageProcessor = new ImageProcessing.ImageProcessing();
         }
 
@@ -28,7 +28,7 @@ namespace Laba1_Histogram
             using (var openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.Filter = "png files (*.png)|*.png";
-           
+
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     _imagePath = openFileDialog.FileName;
@@ -45,23 +45,44 @@ namespace Laba1_Histogram
         {
             try
             {
-                if (string.IsNullOrEmpty(constant.Text))
+                if (string.IsNullOrEmpty(fmin.Text)
+                    || string.IsNullOrEmpty(fmax.Text)
+                    || string.IsNullOrEmpty(gmin.Text)
+                    || string.IsNullOrEmpty(gmax.Text))
                 {
                     MessageBox.Show(this, "Constant value is invalid!");
                 }
                 else
                 {
-                    double c = Convert.ToDouble(constant.Text);
+                    double c = Convert.ToDouble(fmin.Text);
 
-                    DrawChannelHistograms(_imageProcessor.Calculate(_image), originalHisto);
+                    DrawChannelHistograms(_imageProcessor.CalculateHistogram(_image), originalHistoR, originalHistoG, originalHistoB);
 
-                    //var changedImage = this._imageProcessor.LogCorrection(this._image, c);
-                    //this.changedImageBox.Image = (Image)changedImage;
-                    //this.DrawChannelHistograms(this._imageProcessor.Calculate(changedImage), this.changedHisto);
+                    var increaseImage = _imageProcessor
+                        .Dissection(_image, Convert.ToByte(fmin.Text), Convert.ToByte(fmax.Text), 0, 255, TypeOfDissection.RestrictionOfInputBrightness);
+                    increaseBrightnessImage.Image = increaseImage;
+                    DrawChannelHistograms(_imageProcessor.CalculateHistogram(increaseImage), increaseBrightnessR, increaseBrightnessG, increaseBrightnessB);
 
-                    //var filteredImage = this._imageProcessor.RobertsonFilter(this._image);
-                    //this.filteredImage.Image = filteredImage;
-                    //this.DrawChannelHistograms(this._imageProcessor.Calculate(filteredImage), this.filteredHisto);
+                    var loweringImage = _imageProcessor
+                        .Dissection(_image, 0, 255, Convert.ToByte(gmin.Text), Convert.ToByte(gmax.Text), TypeOfDissection.RestrictionOfOutputBrightness);
+                    loweringBightnessImage.Image = loweringImage;
+                    DrawChannelHistograms(_imageProcessor.CalculateHistogram(loweringImage), loweringBightnessR, loweringBightnessG, loweringBightnessB);
+
+                    var filteredMinImage = _imageProcessor
+                        .Filtration(_image, TypeOfFiltration.Min);
+                    minFiltrationImage.Image = filteredMinImage;
+                    DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinImage), minFiltrationR, minFiltrationG, minFiltrationB);
+
+                    var filteredMaxImage = _imageProcessor
+                        .Filtration(_image, TypeOfFiltration.Max);
+                    maxFiltrationImage.Image = filteredMaxImage;
+                    DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMaxImage), maxFiltrationR, maxFiltrationG, maxFiltrationB);
+
+                    var filteredMinMaxImage = _imageProcessor
+                        .FiltrationMinMax(_image);
+                    minMaxFiltrationImage.Image = filteredMinMaxImage;
+                    DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinMaxImage), minMaxFiltrationR, minMaxFiltrationG, minMaxFiltrationB);
+
                 }
             }
             catch (FormatException)
@@ -77,7 +98,7 @@ namespace Laba1_Histogram
             originalImage.Image = _image;
         }
 
-        private static void DrawChannelHistograms(IList<ChannelHistogram> histograms, Chart chart)
+        private void DrawChannelHistograms(IList<ChannelHistogram> histograms, Chart chartR, Chart chartG, Chart chartB)
         {
             var rHistogram = histograms.First(h => h.TypeOfСhannel == TypeOfСhannel.RedСhannel).Histogram;
             var gHistogram = histograms.First(h => h.TypeOfСhannel == TypeOfСhannel.GreenСhannel).Histogram;
@@ -85,9 +106,9 @@ namespace Laba1_Histogram
 
             for (int i = 0; i < 256; i++)
             {
-                chart.Series["R"].Points.AddXY(i, rHistogram.Keys.Contains((byte) i) ? rHistogram[(byte) i] : 0);
-                chart.Series["G"].Points.AddXY(i, gHistogram.Keys.Contains((byte) i) ? gHistogram[(byte) i] : 0);
-                chart.Series["B"].Points.AddXY(i, bHistogram.Keys.Contains((byte) i) ? bHistogram[(byte) i] : 0);
+                chartR.Series["R"].Points.AddXY(i, rHistogram.Keys.Contains((byte)i) ? rHistogram[(byte)i] : 0);
+                chartG.Series["G"].Points.AddXY(i, gHistogram.Keys.Contains((byte)i) ? gHistogram[(byte)i] : 0);
+                chartB.Series["B"].Points.AddXY(i, bHistogram.Keys.Contains((byte)i) ? bHistogram[(byte)i] : 0);
             }
         }
     }

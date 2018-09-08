@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Models\ChannelHistogram.cs" />
     <Compile Include="ImageProcessing.cs" />
+    <Compile Include="Models\TypeOfDissection.cs" />
+    <Compile Include="Models\TypeOfFiltration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TypeOfСhannel.cs" />
   </ItemGroup>
