@@ -50,10 +50,12 @@
             this.originalHistoR = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.originalHistoB = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.originalHistoG = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.grayImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.originalImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.originalHistoR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.originalHistoB)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.originalHistoG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grayImage)).BeginInit();
             this.SuspendLayout();
             // 
             // imagePathBox
@@ -177,12 +179,21 @@
             this.originalHistoG.TabIndex = 17;
             this.originalHistoG.Text = "chart2";
             // 
+            // grayImage
+            // 
+            this.grayImage.Location = new System.Drawing.Point(12, 914);
+            this.grayImage.Name = "grayImage";
+            this.grayImage.Size = new System.Drawing.Size(700, 393);
+            this.grayImage.TabIndex = 18;
+            this.grayImage.TabStop = false;
+            // 
             // ShowResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1507, 953);
+            this.Controls.Add(this.grayImage);
             this.Controls.Add(this.originalHistoG);
             this.Controls.Add(this.originalHistoB);
             this.Controls.Add(this.originalHistoR);
@@ -198,6 +209,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.originalHistoR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.originalHistoB)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.originalHistoG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grayImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,6 +224,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart originalHistoR;
         private System.Windows.Forms.DataVisualization.Charting.Chart originalHistoB;
         private System.Windows.Forms.DataVisualization.Charting.Chart originalHistoG;
+        private System.Windows.Forms.PictureBox grayImage;
     }
 }
 

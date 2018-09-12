@@ -60,30 +60,31 @@ namespace Laba2_ImageIdentification
 
                     DrawChannelHistograms(_histogramProcessing.CalculateHistogram(_image), originalHistoR, originalHistoG, originalHistoB);
 
-                    //var increaseImage = _imageProcessor
-                    //    .Dissection(_image, Convert.ToByte(fmin.Text), Convert.ToByte(fmax.Text), 0, 255, TypeOfDissection.RestrictionOfInputBrightness);
-                    //increaseBrightnessImage.Image = increaseImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(increaseImage), increaseBrightnessR, increaseBrightnessG, increaseBrightnessB);
+                var greyImage = _imageProcessor.GetGreyImage(_image);
+                grayImage.Image = greyImage;
 
-                    //var loweringImage = _imageProcessor
-                    //    .Dissection(_image, 0, 255, Convert.ToByte(gmin.Text), Convert.ToByte(gmax.Text), TypeOfDissection.RestrictionOfOutputBrightness);
-                    //loweringBightnessImage.Image = loweringImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(loweringImage), loweringBightnessR, loweringBightnessG, loweringBightnessB);
 
-                    //var filteredMinImage = _imageProcessor
-                    //    .Filtration(_image, TypeOfFiltration.Min);
-                    //minFiltrationImage.Image = filteredMinImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinImage), minFiltrationR, minFiltrationG, minFiltrationB);
+                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(increaseImage), increaseBrightnessR, increaseBrightnessG, increaseBrightnessB);
 
-                    //var filteredMaxImage = _imageProcessor
-                    //    .Filtration(_image, TypeOfFiltration.Max);
-                    //maxFiltrationImage.Image = filteredMaxImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMaxImage), maxFiltrationR, maxFiltrationG, maxFiltrationB);
+                //var loweringImage = _imageProcessor
+                //    .Dissection(_image, 0, 255, Convert.ToByte(gmin.Text), Convert.ToByte(gmax.Text), TypeOfDissection.RestrictionOfOutputBrightness);
+                //loweringBightnessImage.Image = loweringImage;
+                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(loweringImage), loweringBightnessR, loweringBightnessG, loweringBightnessB);
 
-                    //var filteredMinMaxImage = _imageProcessor
-                    //    .FiltrationMinMax(_image);
-                    //minMaxFiltrationImage.Image = filteredMinMaxImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinMaxImage), minMaxFiltrationR, minMaxFiltrationG, minMaxFiltrationB);
+                //var filteredMinImage = _imageProcessor
+                //    .Filtration(_image, TypeOfFiltration.Min);
+                //minFiltrationImage.Image = filteredMinImage;
+                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinImage), minFiltrationR, minFiltrationG, minFiltrationB);
+
+                //var filteredMaxImage = _imageProcessor
+                //    .Filtration(_image, TypeOfFiltration.Max);
+                //maxFiltrationImage.Image = filteredMaxImage;
+                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMaxImage), maxFiltrationR, maxFiltrationG, maxFiltrationB);
+
+                //var filteredMinMaxImage = _imageProcessor
+                //    .FiltrationMinMax(_image);
+                //minMaxFiltrationImage.Image = filteredMinMaxImage;
+                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinMaxImage), minMaxFiltrationR, minMaxFiltrationG, minMaxFiltrationB);
 
                 //}
             }
