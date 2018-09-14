@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageProcessing.cs" />
+    <Compile Include="Models\ConnecteArea.cs" />
+    <Compile Include="Models\TableOfEquals.cs" />
     <Compile Include="Models\TypeOfNoiseElimination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

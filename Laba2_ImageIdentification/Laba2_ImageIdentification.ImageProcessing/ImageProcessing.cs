@@ -31,6 +31,9 @@ namespace Laba2_ImageIdentification.ImageProcessing
             false, false, true, false, false,
         };
 
+        private byte oneByte = 255;
+        private byte zeroByte = 0;
+
 
         public Bitmap Resize(Bitmap original, int customWidth, int customHeight)
         {
@@ -54,16 +57,16 @@ namespace Laba2_ImageIdentification.ImageProcessing
                 graphics.DrawImage(original, 0, 0, newWidth, newHeight);
             }
 
+            width = newWidth;
+            height = newHeight;
+            originalImage = newImage;
+
             return newImage;
         }
 
 
         public byte[] GetGreyImage(Bitmap original)
         {
-            width = original.Width;
-            height = original.Height;
-            originalImage = original;
-
             var greyImage = new byte[width * height];
 
             for (int i = 0; i < height; i++)
@@ -324,7 +327,7 @@ namespace Laba2_ImageIdentification.ImageProcessing
             return openingImage;
         }
 
-        private byte[] CreateArrayBytes(Bitmap original)
+        public byte[] CreateArrayBytes(Bitmap original)
         {
             var bytes = new byte[original.Width * original.Height];
 
@@ -357,5 +360,139 @@ namespace Laba2_ImageIdentification.ImageProcessing
 
             return resultImage;
         }
+
+        private List<ConnecteArea> ConvertToAreas(byte[] original)
+        {
+            var resultMap = new List<ConnecteArea>();
+
+            for (int x = 0; x < height; x++)
+            {
+                for (int y = 0; y < width; y++)
+                {
+                    resultMap.Add(new ConnecteArea(x, y, 0, original[x * width + y]));
+                }
+            }
+
+            return resultMap;
+        }
+
+
+        public void SelectionOfConnecteAreas(byte[] original)
+        {
+            var areas = ConvertToAreas(original);
+
+            int numberOfArea = 1;
+
+            var table = new List<TableOfEquals>();
+
+            for (int x = 1; x < height; x++)
+            {
+                for (int y = 1; y < width; y++)
+                {
+
+                    int ax = x;
+                    int ay = y;
+
+                    var a = areas[ax * width + ay];
+                    int bx = x;
+                    int by = y - 1;
+
+                    var b = areas[bx * width + by];
+
+                    int cx = x - 1;
+                    int cy = y;
+
+                    var c = areas[cx * width + cy];
+
+                    if (a.Value == zeroByte)
+                    {
+                        continue;
+                    }
+
+                    if (b.NumberOfArea == 0 && c.NumberOfArea == 0)
+                    {
+                        a.NumberOfArea = numberOfArea++;
+                    }
+                    else
+                    {
+                        if ((b.NumberOfArea == 0 && c.NumberOfArea != 0)
+                            || b.NumberOfArea != 0 && c.NumberOfArea == 0)
+                        {
+                            a.NumberOfArea = b.NumberOfArea != 0 ? b.NumberOfArea : c.NumberOfArea;
+                        }
+                        else
+                        {
+                            if (b.NumberOfArea != 0 && c.NumberOfArea != 0)
+                            {
+                                if (b.NumberOfArea == c.NumberOfArea)
+                                {
+                                    a.NumberOfArea = b.NumberOfArea = c.NumberOfArea;
+                                }
+                                else
+                                {
+                                    a.NumberOfArea = b.NumberOfArea;
+
+                                    if (table.Count == 0)
+                                    {
+                                        table.Add(new TableOfEquals(new List<int>() { b.NumberOfArea, c.NumberOfArea }));
+                                        continue;
+                                    }
+
+                                    if (table.FirstOrDefault(i => i.ContainsInOne(b.NumberOfArea, c.NumberOfArea)) != null)
+                                    {
+                                        continue;
+                                    }
+
+                                    var isContaintB = table.FirstOrDefault(i => i.Contains(b.NumberOfArea));
+                                    var isContaintC = table.FirstOrDefault(i => i.Contains(c.NumberOfArea));
+
+                                    if (isContaintB == null && isContaintC == null)
+                                    {
+                                        table.Add(new TableOfEquals(new List<int>() { b.NumberOfArea, c.NumberOfArea }));
+                                        continue;
+                                    }
+
+                                    if (isContaintB != null && isContaintC != null)
+                                    {
+                                        isContaintB.Equals.AddRange(isContaintC.Equals);
+                                        table.Remove(isContaintC);
+                                        continue;
+                                    }
+
+                                    if (isContaintB != null)
+                                    {
+                                        isContaintB.Equals.Add(c.NumberOfArea);
+                                        continue;
+                                    }
+
+                                    if (isContaintC != null)
+                                    {
+                                        isContaintC.Equals.Add(b.NumberOfArea);
+                                        continue;
+                                    }
+
+                                    //
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            int k = 1;
+            foreach (var row in table)
+            {
+                var ar = areas.Where(i => row.Contains(i.NumberOfArea)).ToList();
+                foreach (var a in ar)
+                {
+                    a.NumberOfArea = k;
+                }
+
+                k++;
+            }
+
+        }
+
     }
 }

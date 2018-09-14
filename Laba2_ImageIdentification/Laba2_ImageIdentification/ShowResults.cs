@@ -48,26 +48,32 @@ namespace Laba2_ImageIdentification
         {
             try
             {
-                if (string.IsNullOrEmpty(rbin.Text)
-                    || string.IsNullOrEmpty(cbin.Text))
-                {
-                    MessageBox.Show(this, "Constant value is invalid!");
-                }
-                else
-                {
-                    int c = Convert.ToInt32(cbin.Text);
-                    int r = Convert.ToInt32(rbin.Text);
+                //if (string.IsNullOrEmpty(rbin.Text)
+                //    || string.IsNullOrEmpty(cbin.Text))
+                //{
+                //    MessageBox.Show(this, "Constant value is invalid!");
+                //}
+                //else
+                //{
+                    //int c = Convert.ToInt32(cbin.Text);
+                    //int r = Convert.ToInt32(rbin.Text);
 
-                    var greyProcessing = _imageProcessor.GetGreyImage(_image);
+                    //var greyProcessing = _imageProcessor.GetGreyImage(_image);
 
-                    var binaryProcessing = _imageProcessor.getBlackWight_Ad(greyProcessing, r, c);
+                    //var binaryProcessing = _imageProcessor.getBlackWight_Ad(greyProcessing, r, c);
 
-                    binaryImage.Image = _imageProcessor.CreateImage(binaryProcessing);
+                    //binaryImage.Image = _imageProcessor.CreateImage(binaryProcessing);
 
-                    var openingProcessing = _imageProcessor.Opening(binaryProcessing);
+                    //var openingProcessing = _imageProcessor.Opening(binaryProcessing);
 
+                    //grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
+                    //grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
+
+
+                    var openingProcessing = _imageProcessor.Opening(_imageProcessor.CreateArrayBytes(_image));
                     grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
 
+                    _imageProcessor.SelectionOfConnecteAreas(openingProcessing);
 
 
 
@@ -104,7 +110,7 @@ namespace Laba2_ImageIdentification
                     //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinMaxImage), minMaxFiltrationR, minMaxFiltrationG, minMaxFiltrationB);
 
                     //}
-                }
+                //}
             }
             catch (FormatException)
             {
