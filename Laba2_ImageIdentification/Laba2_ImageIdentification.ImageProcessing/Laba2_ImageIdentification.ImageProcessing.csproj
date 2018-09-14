@@ -42,7 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ImageProcessing.cs" />
+    <Compile Include="Models\TypeOfNoiseElimination.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Laba2_ImageIdentification.Histogram\Laba2_ImageIdentification.Histogram.csproj">
+      <Project>{1f589d36-846e-4f7a-b10d-9f7f26f1d8e7}</Project>
+      <Name>Laba2_ImageIdentification.Histogram</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

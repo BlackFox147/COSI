@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
@@ -47,46 +48,63 @@ namespace Laba2_ImageIdentification
         {
             try
             {
-                //if (string.IsNullOrEmpty(fmin.Text)
-                //    || string.IsNullOrEmpty(fmax.Text)
-                //    || string.IsNullOrEmpty(gmin.Text)
-                //    || string.IsNullOrEmpty(gmax.Text))
-                //{
-                //    MessageBox.Show(this, "Constant value is invalid!");
-                //}
-                //else
-                //{
-                //    double c = Convert.ToDouble(fmin.Text);
+                if (string.IsNullOrEmpty(rbin.Text)
+                    || string.IsNullOrEmpty(cbin.Text))
+                {
+                    MessageBox.Show(this, "Constant value is invalid!");
+                }
+                else
+                {
+                    int c = Convert.ToInt32(cbin.Text);
+                    int r = Convert.ToInt32(rbin.Text);
 
-                    DrawChannelHistograms(_histogramProcessing.CalculateHistogram(_image), originalHistoR, originalHistoG, originalHistoB);
+                    var greyProcessing = _imageProcessor.GetGreyImage(_image);
 
-                var greyImage = _imageProcessor.GetGreyImage(_image);
-                grayImage.Image = greyImage;
+                    var binaryProcessing = _imageProcessor.getBlackWight_Ad(greyProcessing, r, c);
+
+                    binaryImage.Image = _imageProcessor.CreateImage(binaryProcessing);
+
+                    var openingProcessing = _imageProcessor.Opening(binaryProcessing);
+
+                    grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
 
 
-                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(increaseImage), increaseBrightnessR, increaseBrightnessG, increaseBrightnessB);
 
-                //var loweringImage = _imageProcessor
-                //    .Dissection(_image, 0, 255, Convert.ToByte(gmin.Text), Convert.ToByte(gmax.Text), TypeOfDissection.RestrictionOfOutputBrightness);
-                //loweringBightnessImage.Image = loweringImage;
-                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(loweringImage), loweringBightnessR, loweringBightnessG, loweringBightnessB);
 
-                //var filteredMinImage = _imageProcessor
-                //    .Filtration(_image, TypeOfFiltration.Min);
-                //minFiltrationImage.Image = filteredMinImage;
-                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinImage), minFiltrationR, minFiltrationG, minFiltrationB);
+                    //dilationImageProcessing.Save("D:\\dil.png",ImageFormat.Png);
+                    //binaryProcessing.Save("D:\\bin.png", ImageFormat.Png);
 
-                //var filteredMaxImage = _imageProcessor
-                //    .Filtration(_image, TypeOfFiltration.Max);
-                //maxFiltrationImage.Image = filteredMaxImage;
-                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMaxImage), maxFiltrationR, maxFiltrationG, maxFiltrationB);
+                    //dilationImageProcessing.Save("D:\\dil.png", ImageFormat.Png);
 
-                //var filteredMinMaxImage = _imageProcessor
-                //    .FiltrationMinMax(_image);
-                //minMaxFiltrationImage.Image = filteredMinMaxImage;
-                //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinMaxImage), minMaxFiltrationR, minMaxFiltrationG, minMaxFiltrationB);
+                    //int hp = _imageProcessor.getHp(_histogramProcessing.CalculateHistogram(greyImageProcessing));
 
-                //}
+
+                    ///binaryImage
+
+                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(increaseImage), increaseBrightnessR, increaseBrightnessG, increaseBrightnessB);
+
+                    //var loweringImage = _imageProcessor
+                    //    .Dissection(_image, 0, 255, Convert.ToByte(gmin.Text), Convert.ToByte(gmax.Text), TypeOfDissection.RestrictionOfOutputBrightness);
+                    //loweringBightnessImage.Image = loweringImage;
+                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(loweringImage), loweringBightnessR, loweringBightnessG, loweringBightnessB);
+
+                    //var filteredMinImage = _imageProcessor
+                    //    .Filtration(_image, TypeOfFiltration.Min);
+                    //minFiltrationImage.Image = filteredMinImage;
+                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinImage), minFiltrationR, minFiltrationG, minFiltrationB);
+
+                    //var filteredMaxImage = _imageProcessor
+                    //    .Filtration(_image, TypeOfFiltration.Max);
+                    //maxFiltrationImage.Image = filteredMaxImage;
+                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMaxImage), maxFiltrationR, maxFiltrationG, maxFiltrationB);
+
+                    //var filteredMinMaxImage = _imageProcessor
+                    //    .FiltrationMinMax(_image);
+                    //minMaxFiltrationImage.Image = filteredMinMaxImage;
+                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinMaxImage), minMaxFiltrationR, minMaxFiltrationG, minMaxFiltrationB);
+
+                    //}
+                }
             }
             catch (FormatException)
             {

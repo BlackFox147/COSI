@@ -28,34 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.imagePathBox = new System.Windows.Forms.TextBox();
             this.browseButton = new System.Windows.Forms.Button();
             this.originalImage = new System.Windows.Forms.PictureBox();
             this.processButton = new System.Windows.Forms.Button();
-            this.originalHistoR = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.originalHistoB = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.originalHistoG = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.grayImage = new System.Windows.Forms.PictureBox();
+            this.binaryImage = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.rbin = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbin = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.originalImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.originalHistoR)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.originalHistoB)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.originalHistoG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.binaryImage)).BeginInit();
             this.SuspendLayout();
             // 
             // imagePathBox
@@ -95,97 +80,57 @@
             this.processButton.UseVisualStyleBackColor = true;
             this.processButton.Click += new System.EventHandler(this.processButton_Click);
             // 
-            // originalHistoR
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.originalHistoR.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.originalHistoR.Legends.Add(legend1);
-            this.originalHistoR.Location = new System.Drawing.Point(742, 71);
-            this.originalHistoR.Name = "originalHistoR";
-            series1.ChartArea = "ChartArea1";
-            series1.Color = System.Drawing.Color.Red;
-            series1.Legend = "Legend1";
-            series1.LegendText = "R";
-            series1.Name = "R";
-            series2.ChartArea = "ChartArea1";
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            series2.Legend = "Legend1";
-            series2.Name = "G";
-            series3.ChartArea = "ChartArea1";
-            series3.Color = System.Drawing.Color.Blue;
-            series3.Legend = "Legend1";
-            series3.Name = "B";
-            this.originalHistoR.Series.Add(series1);
-            this.originalHistoR.Series.Add(series2);
-            this.originalHistoR.Series.Add(series3);
-            this.originalHistoR.Size = new System.Drawing.Size(700, 393);
-            this.originalHistoR.TabIndex = 9;
-            this.originalHistoR.Text = "chart1";
-            // 
-            // originalHistoB
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.originalHistoB.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.originalHistoB.Legends.Add(legend2);
-            this.originalHistoB.Location = new System.Drawing.Point(742, 487);
-            this.originalHistoB.Name = "originalHistoB";
-            series4.ChartArea = "ChartArea1";
-            series4.Color = System.Drawing.Color.Red;
-            series4.Legend = "Legend1";
-            series4.LegendText = "R";
-            series4.Name = "R";
-            series5.ChartArea = "ChartArea1";
-            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            series5.Legend = "Legend1";
-            series5.Name = "G";
-            series6.ChartArea = "ChartArea1";
-            series6.Color = System.Drawing.Color.Blue;
-            series6.Legend = "Legend1";
-            series6.Name = "B";
-            this.originalHistoB.Series.Add(series4);
-            this.originalHistoB.Series.Add(series5);
-            this.originalHistoB.Series.Add(series6);
-            this.originalHistoB.Size = new System.Drawing.Size(700, 393);
-            this.originalHistoB.TabIndex = 16;
-            this.originalHistoB.Text = "chart1";
-            // 
-            // originalHistoG
-            // 
-            chartArea3.Name = "ChartArea1";
-            this.originalHistoG.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.originalHistoG.Legends.Add(legend3);
-            this.originalHistoG.Location = new System.Drawing.Point(12, 487);
-            this.originalHistoG.Name = "originalHistoG";
-            series7.ChartArea = "ChartArea1";
-            series7.Color = System.Drawing.Color.Red;
-            series7.Legend = "Legend1";
-            series7.LegendText = "R";
-            series7.Name = "R";
-            series8.ChartArea = "ChartArea1";
-            series8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            series8.Legend = "Legend1";
-            series8.Name = "G";
-            series9.ChartArea = "ChartArea1";
-            series9.Color = System.Drawing.Color.Blue;
-            series9.Legend = "Legend1";
-            series9.Name = "B";
-            this.originalHistoG.Series.Add(series7);
-            this.originalHistoG.Series.Add(series8);
-            this.originalHistoG.Series.Add(series9);
-            this.originalHistoG.Size = new System.Drawing.Size(700, 393);
-            this.originalHistoG.TabIndex = 17;
-            this.originalHistoG.Text = "chart2";
-            // 
             // grayImage
             // 
-            this.grayImage.Location = new System.Drawing.Point(12, 914);
+            this.grayImage.Location = new System.Drawing.Point(12, 490);
             this.grayImage.Name = "grayImage";
             this.grayImage.Size = new System.Drawing.Size(700, 393);
             this.grayImage.TabIndex = 18;
             this.grayImage.TabStop = false;
+            // 
+            // binaryImage
+            // 
+            this.binaryImage.Location = new System.Drawing.Point(745, 71);
+            this.binaryImage.Name = "binaryImage";
+            this.binaryImage.Size = new System.Drawing.Size(700, 393);
+            this.binaryImage.TabIndex = 19;
+            this.binaryImage.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(798, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(30, 29);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "R";
+            // 
+            // rbin
+            // 
+            this.rbin.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbin.Location = new System.Drawing.Point(848, 12);
+            this.rbin.Name = "rbin";
+            this.rbin.Size = new System.Drawing.Size(100, 34);
+            this.rbin.TabIndex = 35;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(986, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 29);
+            this.label1.TabIndex = 38;
+            this.label1.Text = "C";
+            // 
+            // cbin
+            // 
+            this.cbin.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbin.Location = new System.Drawing.Point(1022, 14);
+            this.cbin.Name = "cbin";
+            this.cbin.Size = new System.Drawing.Size(100, 34);
+            this.cbin.TabIndex = 37;
             // 
             // ShowResults
             // 
@@ -193,10 +138,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1507, 953);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cbin);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.rbin);
+            this.Controls.Add(this.binaryImage);
             this.Controls.Add(this.grayImage);
-            this.Controls.Add(this.originalHistoG);
-            this.Controls.Add(this.originalHistoB);
-            this.Controls.Add(this.originalHistoR);
             this.Controls.Add(this.processButton);
             this.Controls.Add(this.originalImage);
             this.Controls.Add(this.browseButton);
@@ -206,10 +153,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "First lab";
             ((System.ComponentModel.ISupportInitialize)(this.originalImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.originalHistoR)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.originalHistoB)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.originalHistoG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.binaryImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,10 +166,12 @@
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.PictureBox originalImage;
         private System.Windows.Forms.Button processButton;
-        private System.Windows.Forms.DataVisualization.Charting.Chart originalHistoR;
-        private System.Windows.Forms.DataVisualization.Charting.Chart originalHistoB;
-        private System.Windows.Forms.DataVisualization.Charting.Chart originalHistoG;
         private System.Windows.Forms.PictureBox grayImage;
+        private System.Windows.Forms.PictureBox binaryImage;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox rbin;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox cbin;
     }
 }
 
