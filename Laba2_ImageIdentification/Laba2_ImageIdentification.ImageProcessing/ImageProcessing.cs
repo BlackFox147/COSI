@@ -377,7 +377,9 @@ namespace Laba2_ImageIdentification.ImageProcessing
         }
 
 
-        public void SelectionOfConnecteAreas(byte[] original)
+
+
+        public Bitmap SelectionOfConnecteAreas(byte[] original, Bitmap tempImage)
         {
             var areas = ConvertToAreas(original);
 
@@ -492,7 +494,28 @@ namespace Laba2_ImageIdentification.ImageProcessing
                 k++;
             }
 
+            var shapes = new List<Shape>();
+
+            for (int i = 1; i < k; i++)
+            {
+                shapes.Add(new Shape(areas.Where(a => a.NumberOfArea == i).ToList()));
+            }
+
+            int ake = 0;
+
+            
+            var resultImage = new Bitmap(width, height);
+
+
+            foreach (var pixel in areas.Where(i => i.NumberOfArea != 0)) 
+            {
+                resultImage.SetPixel(pixel.Y, pixel.X, Color.FromArgb(255, 0, 0));
+            }
+
+            return resultImage;
         }
+
+
 
     }
 }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4B7909EE-3A92-47A0-B9A2-8ED0103F931E}</ProjectGuid>
+    <ProjectGuid>{82095D94-67FF-4158-B102-044E80C0E9C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Laba2_ImageIdentification.ImageProcessing</RootNamespace>
-    <AssemblyName>Laba2_ImageIdentification.ImageProcessing</AssemblyName>
+    <RootNamespace>Laba2_ImageIdentification.Cluster</RootNamespace>
+    <AssemblyName>Laba2_ImageIdentification.Cluster</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,18 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageProcessing.cs" />
-    <Compile Include="Models\ConnecteArea.cs" />
-    <Compile Include="Models\Shape.cs" />
-    <Compile Include="Models\TableOfEquals.cs" />
-    <Compile Include="Models\TypeOfNoiseElimination.cs" />
+    <Compile Include="ClusterProcessing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Laba2_ImageIdentification.Histogram\Laba2_ImageIdentification.Histogram.csproj">
-      <Project>{1f589d36-846e-4f7a-b10d-9f7f26f1d8e7}</Project>
-      <Name>Laba2_ImageIdentification.Histogram</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

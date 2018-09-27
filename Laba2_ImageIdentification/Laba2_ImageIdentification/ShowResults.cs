@@ -55,61 +55,42 @@ namespace Laba2_ImageIdentification
                 //}
                 //else
                 //{
-                    //int c = Convert.ToInt32(cbin.Text);
-                    //int r = Convert.ToInt32(rbin.Text);
+                //int c = Convert.ToInt32(cbin.Text);
+                //int r = Convert.ToInt32(rbin.Text);
 
-                    //var greyProcessing = _imageProcessor.GetGreyImage(_image);
+                //var greyProcessing = _imageProcessor.GetGreyImage(_image);
 
-                    //var binaryProcessing = _imageProcessor.getBlackWight_Ad(greyProcessing, r, c);
+                //var binaryProcessing = _imageProcessor.getBlackWight_Ad(greyProcessing, r, c);
 
-                    //binaryImage.Image = _imageProcessor.CreateImage(binaryProcessing);
+                //binaryImage.Image = _imageProcessor.CreateImage(binaryProcessing);
 
-                    //var openingProcessing = _imageProcessor.Opening(binaryProcessing);
+                //var openingProcessing = _imageProcessor.Opening(binaryProcessing);
 
-                    //grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
-                    //grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
-
-
-                    var openingProcessing = _imageProcessor.Opening(_imageProcessor.CreateArrayBytes(_image));
-                    grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
-
-                    _imageProcessor.SelectionOfConnecteAreas(openingProcessing);
+                //grayImage.Image = _imageProcessor.CreateImage(openingProcessing);
 
 
 
-                    //dilationImageProcessing.Save("D:\\dil.png",ImageFormat.Png);
-                    //binaryProcessing.Save("D:\\bin.png", ImageFormat.Png);
 
-                    //dilationImageProcessing.Save("D:\\dil.png", ImageFormat.Png);
+                var openingProcessing = _imageProcessor.Opening(_imageProcessor.CreateArrayBytes(_image));
+                
 
-                    //int hp = _imageProcessor.getHp(_histogramProcessing.CalculateHistogram(greyImageProcessing));
+                var temp =_imageProcessor.SelectionOfConnecteAreas(openingProcessing, _imageProcessor.CreateImage(openingProcessing));
+                grayImage.Image = temp;
 
 
-                    ///binaryImage
 
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(increaseImage), increaseBrightnessR, increaseBrightnessG, increaseBrightnessB);
 
-                    //var loweringImage = _imageProcessor
-                    //    .Dissection(_image, 0, 255, Convert.ToByte(gmin.Text), Convert.ToByte(gmax.Text), TypeOfDissection.RestrictionOfOutputBrightness);
-                    //loweringBightnessImage.Image = loweringImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(loweringImage), loweringBightnessR, loweringBightnessG, loweringBightnessB);
 
-                    //var filteredMinImage = _imageProcessor
-                    //    .Filtration(_image, TypeOfFiltration.Min);
-                    //minFiltrationImage.Image = filteredMinImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinImage), minFiltrationR, minFiltrationG, minFiltrationB);
+                //dilationImageProcessing.Save("D:\\dil.png",ImageFormat.Png);
+                //binaryProcessing.Save("D:\\bin.png", ImageFormat.Png);
 
-                    //var filteredMaxImage = _imageProcessor
-                    //    .Filtration(_image, TypeOfFiltration.Max);
-                    //maxFiltrationImage.Image = filteredMaxImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMaxImage), maxFiltrationR, maxFiltrationG, maxFiltrationB);
+                //dilationImageProcessing.Save("D:\\dil.png", ImageFormat.Png);
 
-                    //var filteredMinMaxImage = _imageProcessor
-                    //    .FiltrationMinMax(_image);
-                    //minMaxFiltrationImage.Image = filteredMinMaxImage;
-                    //DrawChannelHistograms(_imageProcessor.CalculateHistogram(filteredMinMaxImage), minMaxFiltrationR, minMaxFiltrationG, minMaxFiltrationB);
+                //int hp = _imageProcessor.getHp(_histogramProcessing.CalculateHistogram(greyImageProcessing));
 
-                    //}
+
+
+                //}
                 //}
             }
             catch (FormatException)
