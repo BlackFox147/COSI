@@ -32,15 +32,23 @@
             this.browseButton = new System.Windows.Forms.Button();
             this.originalImage = new System.Windows.Forms.PictureBox();
             this.processButton = new System.Windows.Forms.Button();
-            this.grayImage = new System.Windows.Forms.PictureBox();
+            this.openingImage = new System.Windows.Forms.PictureBox();
             this.binaryImage = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.rbin = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cbin = new System.Windows.Forms.TextBox();
+            this.resultImage = new System.Windows.Forms.PictureBox();
+            this.areasImage = new System.Windows.Forms.PictureBox();
+            this.clusteringImage = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numberOfClusters = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.originalImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grayImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.openingImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.binaryImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clusteringImage)).BeginInit();
             this.SuspendLayout();
             // 
             // imagePathBox
@@ -80,17 +88,17 @@
             this.processButton.UseVisualStyleBackColor = true;
             this.processButton.Click += new System.EventHandler(this.processButton_Click);
             // 
-            // grayImage
+            // openingImage
             // 
-            this.grayImage.Location = new System.Drawing.Point(12, 490);
-            this.grayImage.Name = "grayImage";
-            this.grayImage.Size = new System.Drawing.Size(700, 393);
-            this.grayImage.TabIndex = 18;
-            this.grayImage.TabStop = false;
+            this.openingImage.Location = new System.Drawing.Point(749, 497);
+            this.openingImage.Name = "openingImage";
+            this.openingImage.Size = new System.Drawing.Size(700, 393);
+            this.openingImage.TabIndex = 18;
+            this.openingImage.TabStop = false;
             // 
             // binaryImage
             // 
-            this.binaryImage.Location = new System.Drawing.Point(745, 71);
+            this.binaryImage.Location = new System.Drawing.Point(12, 497);
             this.binaryImage.Name = "binaryImage";
             this.binaryImage.Size = new System.Drawing.Size(700, 393);
             this.binaryImage.TabIndex = 19;
@@ -132,18 +140,65 @@
             this.cbin.Size = new System.Drawing.Size(100, 34);
             this.cbin.TabIndex = 37;
             // 
+            // resultImage
+            // 
+            this.resultImage.Location = new System.Drawing.Point(749, 71);
+            this.resultImage.Name = "resultImage";
+            this.resultImage.Size = new System.Drawing.Size(700, 393);
+            this.resultImage.TabIndex = 39;
+            this.resultImage.TabStop = false;
+            // 
+            // areasImage
+            // 
+            this.areasImage.Location = new System.Drawing.Point(12, 922);
+            this.areasImage.Name = "areasImage";
+            this.areasImage.Size = new System.Drawing.Size(700, 393);
+            this.areasImage.TabIndex = 40;
+            this.areasImage.TabStop = false;
+            // 
+            // clusteringImage
+            // 
+            this.clusteringImage.Location = new System.Drawing.Point(749, 922);
+            this.clusteringImage.Name = "clusteringImage";
+            this.clusteringImage.Size = new System.Drawing.Size(700, 393);
+            this.clusteringImage.TabIndex = 41;
+            this.clusteringImage.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(1158, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(25, 29);
+            this.label3.TabIndex = 43;
+            this.label3.Text = "k";
+            // 
+            // numberOfClusters
+            // 
+            this.numberOfClusters.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numberOfClusters.Location = new System.Drawing.Point(1194, 14);
+            this.numberOfClusters.Name = "numberOfClusters";
+            this.numberOfClusters.Size = new System.Drawing.Size(100, 34);
+            this.numberOfClusters.TabIndex = 42;
+            // 
             // ShowResults
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1507, 953);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.numberOfClusters);
+            this.Controls.Add(this.clusteringImage);
+            this.Controls.Add(this.areasImage);
+            this.Controls.Add(this.resultImage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbin);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.rbin);
             this.Controls.Add(this.binaryImage);
-            this.Controls.Add(this.grayImage);
+            this.Controls.Add(this.openingImage);
             this.Controls.Add(this.processButton);
             this.Controls.Add(this.originalImage);
             this.Controls.Add(this.browseButton);
@@ -153,8 +208,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "First lab";
             ((System.ComponentModel.ISupportInitialize)(this.originalImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grayImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.openingImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.binaryImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.areasImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clusteringImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -166,12 +224,17 @@
         private System.Windows.Forms.Button browseButton;
         private System.Windows.Forms.PictureBox originalImage;
         private System.Windows.Forms.Button processButton;
-        private System.Windows.Forms.PictureBox grayImage;
+        private System.Windows.Forms.PictureBox openingImage;
         private System.Windows.Forms.PictureBox binaryImage;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox rbin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox cbin;
+        private System.Windows.Forms.PictureBox resultImage;
+        private System.Windows.Forms.PictureBox areasImage;
+        private System.Windows.Forms.PictureBox clusteringImage;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox numberOfClusters;
     }
 }
 

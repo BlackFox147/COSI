@@ -7,8 +7,8 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Laba2_ImageIdentification.Histogram.Models;
-using Laba2_ImageIdentification.ImageProcessing.Models;
+using Laba2_ImageIdentification.Cluster;
+using Laba2_ImageIdentification.Common;
 
 namespace Laba2_ImageIdentification.ImageProcessing
 {
@@ -87,139 +87,6 @@ namespace Laba2_ImageIdentification.ImageProcessing
 
             return greyImage;
         }
-
-
-        //public Bitmap Bradley_threshold(Bitmap original)
-        //{
-        //    var resultImage = new Bitmap(original, original.Width, original.Height);
-
-        //    int S = original.Width / 64;
-
-        //    int s2 = S / 2;
-
-        //    float t = 0.15f;
-
-        //    var integral_image = new ulong[original.Width * original.Height];
-        //    ulong sum;
-        //    int count;
-        //    int index;
-        //    int y1, x1, y2, x2;
-
-        //    //рассчитываем интегральное изображение 
-
-
-        //    //integral_image = new unsigned long[width * height * sizeof(unsigned long *)];
-
-        //    for (int y = 0; y < original.Width; y++)
-        //    {
-        //        sum = 0;
-        //        for (int x = 0; x < original.Height; x++)
-        //        {
-        //            index = x * original.Width + y;
-        //            sum += original.GetPixel(y,x).G;
-
-        //            if (y == 0)
-        //            {
-        //                integral_image[index] = sum;
-        //            }
-        //            else
-        //            {
-        //                //integral_image.Insert(index, integral_image[index - 1] + sum);
-        //                integral_image[index] = integral_image[index - 1] + sum;
-        //            }
-
-        //        }
-        //    }
-
-        //    //находим границы для локальные областей
-        //    for (int y = 0; y < original.Width; y++)
-        //    {
-        //        for (int x = 0; x < original.Height; x++)
-        //        {
-        //            index = x * original.Width + y;
-
-        //            y1 = y - s2;
-        //            y2 = y + s2;
-        //            x1 = x - s2;
-        //            x2 = x + s2;
-
-        //            if (y1 < 0)
-        //                y1 = 0;
-        //            if (y2 >= original.Width)
-        //                y2 = original.Width - 1;
-        //            if (x1 < 0)
-        //                x1 = 0;
-        //            if (x2 >= original.Height)
-        //                x2 = original.Height - 1;
-
-        //            count = (y2 - y1) * (x2 - x1);
-
-        //            sum = integral_image[x2 * original.Width + y2] - integral_image[x1 * original.Width + y2] -
-        //                  integral_image[x2 * original.Width + y1] + integral_image[x1 * original.Width + y1];
-
-        //            if ((long)original.GetPixel(y, x).R * count < (long)(sum * (1.0 - t)))
-        //                resultImage.SetPixel(y, x, Color.FromArgb(0, 0, 0));
-        //            //res[index] = 0;
-        //            else
-        //                //res[index] = 255;
-        //                resultImage.SetPixel(y, x, Color.FromArgb(255, 255, 255));
-        //        }
-        //    }
-
-        //    //delete[] integral_image;
-        //    return resultImage;
-        //}
-
-        //public byte getHp(IList<ChannelHistogram> histograms)
-        //{
-        //    var histogram = histograms.First(h => h.TypeOfСhannel == TypeOfСhannel.RedСhannel).Histogram;
-
-        //    byte hmax = histogram.FirstOrDefault(x => x.Value == histogram.Values.Max()).Key;
-
-        //    float sum = histogram.Where(k => k.Key <= hmax).Select(i => i.Value).Aggregate<int, float>(0, (current, keyValuePair) => current + keyValuePair);
-
-        //    double p = sum * 0.15;
-
-        //    var list = histogram.Where(k => k.Key >= hmax).Select(i=>i.Key).ToList();
-        //    list.Sort();
-        //    foreach (var h in list)
-        //    {
-        //        var f = histogram.Where(k => k.Key >= h).ToList();
-        //        double count = getCount(f);
-        //        if (count <= p)
-        //        {
-        //            return h;
-        //        }
-        //    }
-
-        //    return hmax;
-
-        //}
-
-        //private double getCount(IList<KeyValuePair<byte,int>> hist)
-        //{
-        //    return hist.Select(i=>i.Value).Aggregate<int, float>(0, (current, keyValuePair) => current + keyValuePair);
-        //}
-
-        //public Bitmap getBlackWight(Bitmap original, IList<ChannelHistogram> histograms)
-        //{
-        //    byte hp = getHp(histograms);
-
-        //    var resultImage = new Bitmap(original.Width, original.Height, PixelFormat.Format24bppRgb);
-
-        //    for (int i = 0; i < original.Width; ++i)
-        //    {
-        //        for (int j = 0; j < original.Height; ++j)
-        //        {
-        //            var pixel = original.GetPixel(i, j);
-
-        //            byte I = pixel.R > hp ? Convert.ToByte(255) : Convert.ToByte(0);
-        //            resultImage.SetPixel(i, j, Color.FromArgb(I, I, I));
-        //        }
-        //    }
-        //    return resultImage;
-        //}
-
 
         public byte[] getBlackWight_Ad(byte[] greyImage, int r, int c)
         {
@@ -377,9 +244,7 @@ namespace Laba2_ImageIdentification.ImageProcessing
         }
 
 
-
-
-        public Bitmap SelectionOfConnecteAreas(byte[] original, Bitmap tempImage)
+        public IList<Shape> SelectionOfConnecteAreas(byte[] original)
         {
             var areas = ConvertToAreas(original);
 
@@ -501,17 +366,55 @@ namespace Laba2_ImageIdentification.ImageProcessing
                 shapes.Add(new Shape(areas.Where(a => a.NumberOfArea == i).ToList()));
             }
 
-            int ake = 0;
+            return shapes;
 
-            
+        }
+
+        public Bitmap ShowConnecteAreas(IList<Shape> shapes)
+        {
             var resultImage = new Bitmap(width, height);
 
-
-            foreach (var pixel in areas.Where(i => i.NumberOfArea != 0)) 
+            foreach (var shape in shapes)
             {
-                resultImage.SetPixel(pixel.Y, pixel.X, Color.FromArgb(255, 0, 0));
+                foreach (var pixel in shape.Areas)
+                {
+                    resultImage.SetPixel(pixel.Y, pixel.X, Color.FromArgb(255, 0, 0));
+                }
             }
 
+            return resultImage;
+        }
+
+
+        public IList<Shape> Cluster(IList<Shape> shapes, int number)
+        {
+            var clusterProcessing = new ClusterProcessing(number, shapes);
+
+            return clusterProcessing.Process();
+        }
+
+        public Bitmap UnhideClustering(IList<Shape> shapes, Bitmap original)
+        {
+            var colors = new Dictionary<int, Color>();
+
+            var clusters = shapes.Select(i => i.NumberOfCluster).Distinct().ToList();
+            var rnd = new Random();
+            foreach (int cluster in clusters)
+            {
+                var color = Color.FromArgb(255, rnd.Next(0, 255), rnd.Next(0, 150));
+                colors.Add(cluster, color);
+            }
+
+            var resultImage = new Bitmap(original, width, height);
+
+            foreach (var shape in shapes)
+            {
+                var color = colors[shape.NumberOfCluster];
+                foreach (var pixel in shape.Areas)
+                {
+                    resultImage.SetPixel(pixel.Y, pixel.X, color);
+                }
+            }
             return resultImage;
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Laba2_ImageIdentification.ImageProcessing.Models
+﻿namespace Laba2_ImageIdentification.Common
 {
     public enum TypeOfNoiseElimination
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Laba2_ImageIdentification.ImageProcessing.Models
+namespace Laba2_ImageIdentification.Common
 {
     public class Shape
     {
@@ -15,6 +15,10 @@ namespace Laba2_ImageIdentification.ImageProcessing.Models
         public double Compactness { get; set; }
 
         public double Elongation { get; set; }
+
+        public int NumberOfCluster { get; set; }
+
+        public List<ConnecteArea> Border { get; set; }
 
         private const int connectivity = 4;
 
@@ -102,6 +106,8 @@ namespace Laba2_ImageIdentification.ImageProcessing.Models
 
         private int GetPerimeter()
         {
+            Border = new List<ConnecteArea>();
+
             int perimeter = 0;
 
             foreach (var pixel in Areas)
@@ -109,6 +115,7 @@ namespace Laba2_ImageIdentification.ImageProcessing.Models
                 if (CheaknNighborhood(pixel))
                 {
                     perimeter++;
+                    Border.Add(pixel);
                 }
             }
 

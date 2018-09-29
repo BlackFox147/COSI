@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace Laba2_ImageIdentification.ImageProcessing.Models
+namespace Laba2_ImageIdentification.Common
 {
     public class TableOfEquals
     {
